@@ -16,7 +16,7 @@ class ElmSprockets < Sprockets::Processor
         else
           Tempfile.open "elm.js" do |file|
             output_file = file.path
-            dir_options = chdir: Rails.root
+            dir_options = { chdir: Rails.root }
           end
         end
 
