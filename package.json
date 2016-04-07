@@ -1,0 +1,22 @@
+{
+  "name": "rails",
+  "version": "0.0.0",
+  "description": "Project Details =================",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "elm": "0.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/NoRedInk/elm-sprockets.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/NoRedInk/elm-sprockets/issues"
+  },
+  "homepage": "https://github.com/NoRedInk/elm-sprockets"
+}
