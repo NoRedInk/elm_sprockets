@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.date = %q{2010-04-03}
   s.description = %q{Compiles Elm Modules to Sprockets-friendly JavaScript}
   s.email = %q{richard@noredink.com}
-  s.files = ["Rakefile", "lib/sprockets-elm.rb", "lib/elm_compiler.rb"]
+  s.files = ["lib/elm_sprockets.rb", "lib/elm_compiler.rb"]
   s.licenses = ["Apache-2.0"]
-  s.test_files = ["test/test_elm_compiler.rb"]
+  s.test_files = ["Rakefile, ""test/test_elm_compiler.rb"]
   s.homepage = %q{http://rubygems.org/gems/sprockets-elm}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
@@ -27,4 +27,3 @@ Gem::Specification.new do |s|
   else
   end
 end
-
