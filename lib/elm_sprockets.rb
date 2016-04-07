@@ -1,28 +1,24 @@
-require 'elm_compiler'
+require_relative './elm_compiler'
 require 'sprockets'
 require 'tempfile'
 
-class ElmSprockets < Sprockets::Processor
-  def evaluate(context, locals)
+
+class ElmSprockets
+  def self.default_mime_type
+    'text/x-elm'
+  end
+
+  def evaluate(context, _locals)
     pathname = context.pathname.to_s
 
     if pathname =~ /\.js.*\.elm$/
       add_elm_dependencies pathname, context
-
+      tempfile = Tempfile.new ['compiled_elm_output', '.js']
       begin
-        if defined?(Rails)
-          output_file = "#{Rails.root}/tmp/cache/assets/elm.js"
-          dir_options = {}
-        else
-          Tempfile.open "elm.js" do |file|
-            output_file = file.path
-            dir_options = { chdir: Rails.root }
-          end
-        end
-
-        ElmCompiler.compile pathname, output_file, dir_options
+        ElmCompiler.compile pathname, tempfile, chdir: Rails.root
+        tempfile.read
       ensure
-        File.delete output_file if File.exist? output_file
+        tempfile.close
       end
     else
       ""
@@ -42,28 +38,36 @@ class ElmSprockets < Sprockets::Processor
       # e.g. `import Quiz.QuestionStore exposing (..)`
       match = line.match(/^import\s+([^\s]+)/)
 
-      unless match.nil?
-        # e.g. Quiz.QuestionStore
-        module_name = match.captures[0]
+      next unless match
 
-        # e.g. Quiz/QuestionStore
-        dependency_logical_name = module_name.gsub(".", "/")
+      # e.g. Quiz.QuestionStore
+      module_name = match.captures[0]
 
-        # e.g. ~/NoRedInk/app/assets/javascripts/Quiz/QuestionStore.elm
-        dependency_filepath = dirname + dependency_logical_name + ".elm"
+      # e.g. Quiz/QuestionStore
+      dependency_logical_name = module_name.tr(".", "/")
 
-        # If we don't find the dependency in our filesystem, assume it's because
-        # it comes in through a third-party package rather than our sources.
-        if File.file? dependency_filepath
-          context.depend_on dependency_logical_name
+      # e.g. ~/NoRedInk/app/assets/javascripts/Quiz/QuestionStore.elm
+      dependency_filepath = dirname + dependency_logical_name + ".elm"
 
-          add_elm_dependencies dependency_filepath, context
-        end
-      end
+      # If we don't find the dependency in our filesystem, assume it's because
+      # it comes in through a third-party package rather than our sources.
+      next unless File.file? dependency_filepath
+
+      context.depend_on dependency_logical_name
+      add_elm_dependencies dependency_filepath, context
     end
   end
 end
 
 if defined?(Rails)
-  Rails.application.assets.register_engine('.elm', ElmCompiler)
+  Rails.application.assets.register_engine('.elm', ElmSprockets)
+  Rails.application.assets.register_mime_type('text/x-elm', '.elm')
+  Rails.application.config.assets.precompile.delete_if do |rule|
+    next unless rule.is_a? Proc
+    # delete the rule that doesn't match cs or js but matches elm
+    ['css', 'js'].none? {|ext| rule.call "butts.#{ext}"} && rule.call('butts.elm')
+  end
+  Rails.application.config.assets.precompile << Proc.new{ |path| !File.extname(path).in?(['.js', '.css', '.elm']) }
+end
+
 end
