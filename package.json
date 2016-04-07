@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/NoRedInk/elm-sprockets.git"
+    "url": "git://github.com/NoRedInk/elm_sprockets.git"
   },
   "author": "",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/NoRedInk/elm-sprockets/issues"
+    "url": "https://github.com/NoRedInk/elm_sprockets/issues"
   },
-  "homepage": "https://github.com/NoRedInk/elm-sprockets"
+  "homepage": "https://github.com/NoRedInk/elm_sprockets"
 }

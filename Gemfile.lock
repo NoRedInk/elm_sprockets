@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    elm_sprockets (0.0.1)
+    elm_sprockets (0.0.2)
       rails (~> 3.2.22.2)
 
 GEM

@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "helpful summary of your project, less than 80 characters",
-    "repository": "https://github.com/noredink/elm-sprockets.git",
+    "repository": "https://github.com/noredink/elm_sprockets.git",
     "license": "Apache-2.0",
     "source-directories": [
         "test/elm"

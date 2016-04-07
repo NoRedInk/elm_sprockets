@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = ElmSprockets::VERSION
   s.authors     = ["Richard Feldman", "Joshua Leven", "Marica Odagaki"]
   s.email       = ["richard@noredink.com"]
-  s.homepage    = "https://github.com/noredink/elm-sprockets"
+  s.homepage    = "https://github.com/noredink/elm_sprockets"
   s.summary     = "Compiles Elm Modules"
   s.description = "Compiles Elm Modules to Sprockets-friendly JavaScript"
 
