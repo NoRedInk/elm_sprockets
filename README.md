@@ -1,13 +1,35 @@
-This works with Rails 3.2
+# ElmSprockets - Elm inside Rails
 
-This requires some piping together with npm & elm-make that we haven't quite figured out
-process-with. At the very least, you're going to need to:
+## Usage
 
-- copy the `package.json` from this repo in to your rails repo and call `npm install`
-- create an initializer in `config/initializers/elm_sprockets.rb` with the following contents:
+In your Gemfile:
 
-```ruby
-ElmSprockets.initialize(Rails.application)
+``` ruby
+gem 'elm_sprockets', '~> 0.2.0'
 ```
 
-At some point we'll figure out generators, etc. For now: This is it!
+Now Elm modules can be normally required inside Sprockets manifest files:
+
+``` js
+//= require jquery
+//= require jquery_ujs
+//= require ElmModule
+//= require_tree .
+```
+### Dependencies
+
+If you have Elm module, which imports other Elm modules you need to tell Sprockets to watch for their changes also. This is done through standard Sprockets comment directives on first lines of dependent module:
+
+```
+--= depend_on MyOtherModule
+module Main exposing (..)
+
+import Html exposing (..)
+import MyOtherModule exposing (..)
+
+main =
+  div [] [text "Hello World!"]
+```
+If you don't do that your Main module will be recompiled only when changes are done directly in him.
+
+For other Sprockets directives see https://github.com/rails/sprockets/blob/master/guides/end_user_asset_generation.md
