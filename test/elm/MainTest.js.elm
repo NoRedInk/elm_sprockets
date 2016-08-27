@@ -1,9 +1,4 @@
-module MainTest where
-
-import TestDependencyA
-import TestDependencyB exposing (..)
-
---import InvalidDependency exposing (..)
+module MainTest exposing (..)
 
 import Html exposing (..)
 
