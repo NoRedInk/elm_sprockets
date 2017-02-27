@@ -12,7 +12,7 @@ module ElmSprockets
       input_file = input[:filename]
       output_file = output_dir + input[:name] + '.js'
 
-      cmd = "elm make #{input_file} --output #{output_file}"
+      cmd = "elm make #{input_file} --output #{output_file} --yes"
 
       Open3.popen3(cmd, chdir: compile_dir) do |_in, out, err, t|
         compiler_out = out.read
