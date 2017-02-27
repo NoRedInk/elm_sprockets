@@ -14,12 +14,10 @@ module ElmSprockets
 
       cmd = "elm make #{input_file} --output #{output_file} --yes"
 
-      Open3.popen3(cmd, chdir: compile_dir) do |_in, out, err, t|
-        compiler_out = out.read
+      Open3.popen3(cmd, chdir: compile_dir) do |_in, _out, err, t|
         compiler_err = err.read
-        if t.value != 0
-          raise CompileError, compiler_err
-        end
+
+        raise(CompileError, compiler_err) if t.value != 0
       end
 
       { data: File.read(output_file) }
@@ -28,7 +26,7 @@ module ElmSprockets
     private
 
     def output_dir
-      @options.fetch(:output_dir, "./")
+      @options.fetch(:output_dir, './')
     end
 
     def compile_dir
