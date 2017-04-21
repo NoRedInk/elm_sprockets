@@ -1,6 +1,7 @@
-module MainTest exposing (..)
+module MainTest (..) where
 
 import Html exposing (..)
 
+
 main =
-  div [] [text "Hello World!"]
+    div [] [ text "Hello World!" ]
