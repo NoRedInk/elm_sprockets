@@ -1,3 +1,6 @@
+# This package is no longer maintained!
+## Reach out to mike@noredink.com if you would like to take over maintenance
+
 This works with Rails 3.2
 
 This requires some piping together with npm & elm-make that we haven't quite figured out
